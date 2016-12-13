@@ -1,0 +1,30 @@
+{
+  "name": "lib",
+  "description": "FrontEnd Capstone project. Crypto puzzle challenge",
+  "main": "Gruntfile.js",
+  "authors": [
+    "Jack Pinkston"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Cryptography",
+    "puzzle",
+    "game"
+  ],
+  "homepage": "https://github.com/pinkston4/Crypto_Capstone",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.7",
+    "angular-route": "1.5.7",
+    "angularfire": "2.0.1",
+    "bootstrap": "^3.3.7",
+    "firebase": "^3.6.3",
+    "jquery": "^3.1.1"
+  }
+}
