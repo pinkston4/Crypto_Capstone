@@ -4,9 +4,9 @@ app.factory('FactFactory', function($http, FBcreds) {
 
 	let getFacts = () => {
 		return new Promise ((resolve, reject) => {
-			$http.get(`${FBcreds.URL}/facts.json`)
+			$http.get(`${FBcreds.URL}/facts/0.json`)
 			.success((data) => {
-				console.log("in FF.js, running getFacts", data);
+				// console.log("in FF.js, running getFacts", data);
 				resolve(data);
 			})
 			.error((error) => {
