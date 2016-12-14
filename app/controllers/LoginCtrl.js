@@ -2,8 +2,8 @@
 
 app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window, $location){
 	$scope.account = {
-		email: '',
-		password: ''
+		email: 'pinkstonjack2@gmail.com',
+		password: 'password'
 	};
 
 	console.log("AuthFactory.getUser",AuthFactory.getUser());

@@ -4,9 +4,11 @@ app.controller('MainViewCtrl', function($scope, AuthFactory, $window) {
 
 	$scope.logOut = () => {
 	AuthFactory.logoutUser()
-	.then(()=>{
+	.then((logoutData)=>{
+		console.log(logoutData);
 		AuthFactory.isAuthenticated()
-		.then(()=>{
+		.then((Authdata)=>{
+			console.log(Authdata);
 			$window.location.href = "#/login";
 		});
 	});

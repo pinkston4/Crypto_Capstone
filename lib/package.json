@@ -23,10 +23,5 @@
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",
     "matchdep": "^1.0.1"
-  },
-  "dependencies": {
-    "christopher": "^1.1.1",
-    "romanmd5": "^1.0.5",
-    "underscore": "^1.8.3"
   }
 }
