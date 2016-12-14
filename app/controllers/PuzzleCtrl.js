@@ -84,7 +84,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 	};
 //if the character is a space return then, if not find the character in xtable and return its value
 	$scope.getRepChar = (character) => {
-		if(character == " ") {
+		if(character === " ") {
 			return character;
 		}
 			return $scope.xtable[character];
@@ -105,7 +105,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 	};
 // if the character is a space return then, otherwise it takes the number and runs it through this function, returns new value
 	$scope.theMathPart = (refNum) => {
-		if(refNum == " ") {
+		if(refNum === " ") {
 			return refNum;
 		}
 		return (($scope.alpha * refNum) + $scope.beta) % 26;
@@ -126,12 +126,13 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 			let newChar = $scope.getRepCipher($scope.encodedTxt[i]);
 			$scope.cipherTxtArray.push(newChar);
 		}
+
 		console.log("cipherTxtArray:", $scope.cipherTxtArray);
 		$scope.cipherTxt = $scope.cipherTxtArray.join("");
 		console.log("ciphertxt:", $scope.cipherTxt);
 	};
 	$scope.getRepCipher = (num) => {
-		if(num == " ") {
+		if(num === " ") {
 			return num;
 		}
 		return $scope.new_obj[num];
