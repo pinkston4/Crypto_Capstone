@@ -48,11 +48,15 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 
 	$scope.originalString = '';
 	$scope.cipherTxt = '';
+	$scope.decipheredTxt = '';
 	$scope.cipherTxtArray = [];
 	$scope.numberTxt = [];
 	$scope.encodedTxt = [];
+	$scope.decodedNum = [];
+	$scope.originalTxtArray = [];
 	$scope.alpha = null;
 	$scope.beta = null;
+	$scope.MMI = null;
 	$scope.new_obj = {};
 
 	FactFactory.getFacts()
@@ -70,8 +74,15 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 		$scope.invert($scope.xtable);
 	}).then(() => {
 		console.log('new_obj:', $scope.new_obj);
-		console.log("new_obj[0]:", $scope.new_obj[0]);
 		$scope.createCipherTxt();
+	}).then(() => {
+		$scope.ExtEuclAlg($scope.zIndex);
+	}).then(() => {
+		console.log("mmi:", $scope.MMI);
+		$scope.decrypt();
+	}).then(() => {
+		console.log('decodedNum:', $scope.decodedNum);
+		$scope.backToChar();
 	});
 
 //loop over the string, get the character, pass it to get replacement character, get the number value of character, push to array
@@ -126,7 +137,6 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 			let newChar = $scope.getRepCipher($scope.encodedTxt[i]);
 			$scope.cipherTxtArray.push(newChar);
 		}
-
 		console.log("cipherTxtArray:", $scope.cipherTxtArray);
 		$scope.cipherTxt = $scope.cipherTxtArray.join("");
 		console.log("ciphertxt:", $scope.cipherTxt);
@@ -136,6 +146,44 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 			return num;
 		}
 		return $scope.new_obj[num];
+	};
+
+//finding the modular multiplicative inverse, x, of a mod m
+	$scope.ExtEuclAlg = (obj) => {
+		for(let prop in obj) {
+			if((obj[prop] * $scope.alpha)%26 === 1) {
+				$scope.MMI = obj[prop];
+			}
+		}
+	};
+
+//the decrypt function
+	$scope.decrypt = () => {
+		for(let i = 0; i < $scope.encodedTxt.length; i++) {
+			let originalNum = $scope.theOtherMathPart($scope.encodedTxt[i]);
+			$scope.decodedNum.push(originalNum);
+		}
+	};
+	$scope.theOtherMathPart = (num) => {
+		if(num === " ") {
+			return num;
+		}
+		let newNum = $scope.MMI * (num - $scope.beta) % 26;
+		if(Math.sign(newNum) === -1) {
+			return newNum + 26;
+		}
+		return  newNum;
+	};
+
+//takes the deciphered numbers and changes it back to text
+	$scope.backToChar = () => {
+		for(let j = 0; j < $scope.decodedNum.length; j++) {
+			let originalChar = $scope.getRepCipher($scope.decodedNum[j]);
+			$scope.originalTxtArray.push(originalChar);
+		}
+		console.log('originalTxtArray:', $scope.originalTxtArray);
+		$scope.decipheredTxt = $scope.originalTxtArray.join("");
+		console.log("decipheredTxt:", $scope.decipheredTxt);
 	};
 
 
