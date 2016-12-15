@@ -1,1 +1,13 @@
 <h1>This will be the puzzle eventually</h1>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div ng-repeat="thingy in cipherTxtArray track by $index" class="cipherString">
+		<div>
+			<div class="cipherLetter"><input type="text" name="" id="{{$index}}" class="letterGuess" maxlength="1" ng-Keyup="checkYoSelf($event)" ng-disabled="{{thingy == ' ' ? true : false}}"></div>
+			<div class="cipherLetter">{{thingy == ' ' ? '&nbsp;' : thingy}}</div>
+		</div>
+
+		</div>
+	</div>
+	<button ng-click="giveUp()">Give Up</button>
+</div>

@@ -83,6 +83,8 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 	}).then(() => {
 		console.log('decodedNum:', $scope.decodedNum);
 		$scope.backToChar();
+	}).then(() => {
+		$scope.$apply();
 	});
 
 //loop over the string, get the character, pass it to get replacement character, get the number value of character, push to array
@@ -93,6 +95,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 		}
 	
 	};
+
 //if the character is a space return then, if not find the character in xtable and return its value
 	$scope.getRepChar = (character) => {
 		if(character === " ") {
@@ -100,11 +103,13 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 		}
 			return $scope.xtable[character];
 	};
+
 //finds the values of alpha (any number coprime to m) and finds the number of b; b is arbitrary as long as a is not 1, cap b at 25 to counter act
 	$scope.alphaBeta = () => {
 		$scope.alpha = $scope.zIndex[Math.floor(Math.random() * 12 + 1)];
 		$scope.beta = Math.floor(Math.random() * 25 + 1);
 	};
+
 //take the array of number values and loop over it, pass it to the math part to encode, push the new number to an array
 	$scope.encode = () => {
 		console.log("originalString to #:",$scope.numberTxt);
@@ -114,6 +119,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 		}
 		console.log("encodedTxt:", $scope.encodedTxt);
 	};
+
 // if the character is a space return then, otherwise it takes the number and runs it through this function, returns new value
 	$scope.theMathPart = (refNum) => {
 		if(refNum === " ") {
@@ -122,7 +128,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 		return (($scope.alpha * refNum) + $scope.beta) % 26;
 	};
 //invert the xtable allowing easy access for creating ciphertxt
-//invert was originally _.invert from underscore js
+//invert was originally _.invert from underscoreJS, copied and modified to meet need
 	$scope.invert = (obj) => {
 	  for (let prop in obj) {
 	    if(obj.hasOwnProperty(prop)) {
@@ -131,6 +137,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 	  }
 	  return $scope.new_obj;
 	};
+
 //takes the new number value and finds the corresponding letter and creates new string
 	$scope.createCipherTxt = () => {
 		for(let i = 0; i < $scope.encodedTxt.length; i++) {
@@ -184,6 +191,33 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 		console.log('originalTxtArray:', $scope.originalTxtArray);
 		$scope.decipheredTxt = $scope.originalTxtArray.join("");
 		console.log("decipheredTxt:", $scope.decipheredTxt);
+	};
+
+//if the user cannot solve the puzzle and chooses to give up, the click the "give up button"
+	$scope.giveUp = () => {
+		$scope.cipherTxtArray = $scope.originalTxtArray;
+	};
+
+//check to see if the letter input matches the deciphered text
+	$scope.checkYoSelf = ($event) => {
+		console.log($event.which);
+		if($event.which < 65 || $event.which > 90) {
+			return;
+		}
+		console.log('the id of event:', $event.currentTarget.id);
+		console.log('letter input of event was:', String.fromCharCode($event.which).toLowerCase());
+		let i = $event.currentTarget.id;
+		let letter = String.fromCharCode($event.which).toLowerCase();
+		if($scope.originalTxtArray[i] == letter) {
+			console.log('true');
+			$(`#${i}`).removeClass('incorrect');
+			$(`#${i}`).addClass('correct');
+			$(`#${i}`).prop('disabled', true);
+		} else {
+			console.log('false');
+			$(`#${i}`).removeClass('correct');
+			$(`#${i}`).addClass('incorrect');
+		}
 	};
 
 
