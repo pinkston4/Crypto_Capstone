@@ -21,15 +21,18 @@ app.config(($routeProvider) =>{
 	})
 	.when('/mainView', {
 		templateUrl: 'partials/mainView.html',
-		controller: 'MainViewCtrl'
+		controller: 'MainViewCtrl',
+		resolve: {isAuth}
 	})
 	.when('/profile', {
 		templateUrl: 'partials/userProf.html',
-		controller: 'ProfCtrl'
+		controller: 'ProfCtrl',
+		resolve: {isAuth}
 	})
 	.when('/puzzle', {
 		templateUrl: 'partials/puzzle.html',
-		controller: 'PuzzleCtrl'
+		controller: 'PuzzleCtrl',
+		resolve: {isAuth}
 	})
 	.otherwise('/login');
 });
