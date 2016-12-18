@@ -217,9 +217,14 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 			console.log('false');
 			$(`#${i}`).removeClass('correct');
 			$(`#${i}`).addClass('incorrect');
+			$(`#${i}`).prop('value', "");
 		}
 	};
 
+//if the guess was right find all instances of that letter and change them
+	// $scope.youWereRight = () => {
+
+	// };
 
 });
 
