@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('PuzzleCtrl', function($scope, FactFactory) {
+app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
 	
 	$scope.xtable = {
 		a: 0,
@@ -58,6 +58,9 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 	$scope.beta = null;
 	$scope.MMI = null;
 	$scope.new_obj = {};
+	$scope.start = null;
+	$scope.end = null;
+	$scope.totalTime = null;
 
 	FactFactory.getFacts()
 	.then((data) => {
@@ -85,6 +88,8 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 		$scope.backToChar();
 	}).then(() => {
 		$scope.$apply();
+		$scope.startTimer();
+		console.log('start:', $scope.start);
 	});
 
 //loop over the string, get the character, pass it to get replacement character, get the number value of character, push to array
@@ -196,44 +201,86 @@ app.controller('PuzzleCtrl', function($scope, FactFactory) {
 //if the user cannot solve the puzzle and chooses to give up, the click the "give up button"
 	$scope.giveUp = () => {
 		$scope.cipherTxtArray = $scope.originalTxtArray;
+		$scope.endTimer();
 	};
 
 //check to see if the letter input matches the deciphered text
 	$scope.checkYoSelf = ($event) => {
-		console.log($event.which);
 		if($event.which < 65 || $event.which > 90) {
 			return;
 		}
-		console.log('the id of event:', $event.currentTarget.id);
-		console.log('letter input of event was:', String.fromCharCode($event.which).toLowerCase());
 		let i = $event.currentTarget.id;
 		let letter = String.fromCharCode($event.which).toLowerCase();
 		if($scope.originalTxtArray[i] == letter) {
-			console.log('true');
-			$(`#${i}`).removeClass('incorrect');
-			$(`#${i}`).addClass('correct');
-			$(`#${i}`).prop('disabled', true);
+			$scope.allInstances(i, letter);
 		} else {
-			console.log('false');
 			$(`#${i}`).removeClass('correct');
 			$(`#${i}`).addClass('incorrect');
 			$(`#${i}`).prop('value', "");
 		}
 	};
 
-//if the guess was right find all instances of that letter and change them
-	// $scope.youWereRight = () => {
+//if the guess was right find all instances of that letter 
+	$scope.allInstances = (index, letter) => {
+		let toCompare = $scope.cipherTxtArray[index];
+		let newArray = [];
+		let idx = $scope.cipherTxtArray.indexOf(toCompare);
+		while (idx != -1) {
+		  newArray.push(idx);
+		  idx = $scope.cipherTxtArray.indexOf(toCompare, idx + 1);
+		}
+		$scope.allTheseAreRight(newArray, letter);
+	};
 
-	// };
+//alter all instance of letter if it was correct
+	$scope.allTheseAreRight = (correctArray, letter) => {
+		for(let i = 0; i < correctArray.length; i++) {
+			$(`#${correctArray[i]}`).removeClass('incorrect');
+			$(`#${correctArray[i]}`).addClass('correct');
+			$(`#${correctArray[i]}`).prop('value', letter);
+			$(`#${correctArray[i]}`).prop('disabled', true);
+		}
+		$scope.IsItFin();
+	};
+
+//get a new puzzle
+	$scope.getNewPuzzle = () => {	
+		$window.location.reload();	
+	};
+
+//start the timer
+	$scope.startTimer = () => {
+		$scope.start = Date.now();
+	};
+//end time
+	$scope.endTimer = () => {
+		$scope.end = Date.now();
+		console.log('end:', $scope.end);
+		$scope.totalTime();
+	};
+//the total time it took to solve the puzzle or give up
+	$scope.totalTime = () => {
+		let time = $scope.end - $scope.start;
+		console.log("totalTime:", time);
+
+	};
+
+//check to see if the puzzle is complete
+	$scope.IsItFin = () => {
+		let newArray = [];
+		for(let i = 0; i < $scope.cipherTxtArray.length; i++) {
+			if($(`#${i}`).prop('disabled') === true) {
+				newArray.push(i);
+			}
+		}
+		if(newArray.length === $scope.cipherTxtArray.length) {
+			$scope.endTimer();
+		}
+	};
+
+
 
 });
 
-// functions to remember:
-// f(x) = (ax + b) mod m
-// d(x) = a^-1(x - b) mod m
-// 1 = (a)(a^-1) mod m
-// a must be co prime to m
-// a^1 is the modular multiplicative inverse of a mod m 
-// b is arbitrary 0-25 
-// m is total length of alphabet so 26
+
 
