@@ -60,7 +60,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
 	$scope.new_obj = {};
 	$scope.start = null;
 	$scope.end = null;
-	$scope.totalTime = null;
+	$scope.runTime = null;
 
 	FactFactory.getFacts()
 	.then((data) => {
@@ -261,7 +261,11 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
 //the total time it took to solve the puzzle or give up
 	$scope.totalTime = () => {
 		let time = $scope.end - $scope.start;
-		console.log("totalTime:", time);
+		let trueTime = time / 1000;
+		let minutes = Math.floor(trueTime / 60);
+		let seconds = (trueTime % 60).toPrecision(2);
+		$scope.runTime = minutes + ":" + seconds;
+		console.log("totalTime:", $scope.runTime);
 
 	};
 
