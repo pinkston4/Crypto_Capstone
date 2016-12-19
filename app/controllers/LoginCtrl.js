@@ -2,8 +2,12 @@
 
 app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window, $location){
 	$scope.account = {
-		email: 'pinkstonjack2@gmail.com',
-		password: 'password'
+		email: '',
+		password: '',
+		bestTime: 1000000000000,
+		totalAttempts: 0,
+		totalComplete: 0,
+		totalAbandoned: 0
 	};
 
 	console.log("AuthFactory.getUser",AuthFactory.getUser());
@@ -12,8 +16,11 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window, 
 	AuthFactory.createUser($scope.account)
 	.then((sumtin) => {
 		$scope.account.uid = sumtin.uid;
-	UserFactory.createFBUser($scope.account);
 		console.log("sumtin",sumtin);
+		UserFactory.createFBUser($scope.account)
+		.then(() => {
+			$scope.login();
+		});
 	});
 
 	};

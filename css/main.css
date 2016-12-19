@@ -22,4 +22,14 @@
 .incorrect {
   background-color: #ff4c4c; }
 
+.mainButton {
+  width: 7em;
+  height: 3em; }
+
+.register {
+  margin: 2px; }
+
+.login {
+  margin: 2px; }
+
 /*# sourceMappingURL=main.css.map */
