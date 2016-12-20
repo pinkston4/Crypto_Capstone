@@ -16,5 +16,6 @@ app.factory('FactFactory', function($http, FBcreds) {
 		});
 	};
 
+
 	return {getFacts};
 });
