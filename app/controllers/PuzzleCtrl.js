@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
+app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory) {
 	
 	$scope.xtable = {
 		a: 0,
@@ -90,7 +90,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
 	}).then(() => {
 		$scope.$apply();
 		$scope.startTimer();
-		console.log('start:', $scope.start);
+		$scope.addTallyAttempt();
 	});
 
 //loop over the string, get the character, pass it to get replacement character, get the number value of character, push to array
@@ -202,7 +202,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
 //if the user cannot solve the puzzle and chooses to give up, the click the "give up button"
 	$scope.giveUp = () => {
 		$scope.cipherTxtArray = $scope.originalTxtArray;
-		$scope.endTimer();
+		$scope.addTallyAbandoned();
 	};
 
 //check to see if the letter input matches the deciphered text
@@ -256,7 +256,6 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
 //end time
 	$scope.endTimer = () => {
 		$scope.end = Date.now();
-		console.log('end:', $scope.end);
 		$scope.totalTime();
 	};
 //the total time it took to solve the puzzle or give up
@@ -267,7 +266,8 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
 		let seconds = (trueTime % 60).toPrecision(2);
 		$scope.runTime = minutes + ":" + seconds;
 		console.log("totalTime:", $scope.runTime);
-		console.log('scope.milli:', $scope.milli);
+		console.log('totalTime milliseconds:', $scope.milli);
+		$scope.besTime();
 
 	};
 
@@ -281,7 +281,57 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window) {
 		}
 		if(newArray.length === $scope.cipherTxtArray.length) {
 			$scope.endTimer();
+			$scope.addTallyComplete();
 		}
+	};
+
+//Check to see if the user beet their best time
+	$scope.besTime = () => {
+		ProfFactory.getUserStats()
+		.then((data) => {
+			let currentBest = data[0].bestTime;
+			if(currentBest > $scope.milli) {
+				console.log("new best time");
+				let newTime = {bestTime: $scope.milli};
+				let id = data[0].id;
+				ProfFactory.setUpdate(newTime, id);
+			}
+		});
+	};
+//add on a tally to the total number of attempts
+	$scope.addTallyAttempt = () => {
+		ProfFactory.getUserStats()
+		.then((data) => {
+			let currentNumAttempt = data[0].totalAttempts;
+			let newNumAttempt = currentNumAttempt + 1;
+			let newAttempts = {totalAttempts: newNumAttempt};
+			let id = data[0].id;
+			ProfFactory.setUpdate(newAttempts, id);
+		});
+	};
+
+//add on a tally to abandoned if the user clicks give up
+	$scope.addTallyAbandoned = () => {
+		ProfFactory.getUserStats()
+		.then((data) => {
+			let currentNumAbandoned = data[0].totalAbandoned;
+			let newNumAbandoned = currentNumAbandoned + 1;
+			let newAbandoned = {totalAbandoned: newNumAbandoned};
+			let id = data[0].id;
+			ProfFactory.setUpdate(newAbandoned, id);
+		});
+	};
+
+//add tally to completted if they complete the puzzle on their own
+	$scope.addTallyComplete = () => {
+		ProfFactory.getUserStats()
+		.then((data) => {
+			let currentNumComplete = data[0].totalComplete;
+			let newNumComplete = currentNumComplete + 1;
+			let newComplete = {totalComplete: newNumComplete};
+			let id = data[0].id;
+			ProfFactory.setUpdate(newComplete, id);
+		});
 	};
 
 
