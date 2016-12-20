@@ -9,14 +9,24 @@ app.factory('ProfFactory', function($http, FBcreds, AuthFactory) {
 			let currentUser = AuthFactory.getUser();
 			$http.get(`${FBcreds.URL}/users.json?orderBy="uid"&equalTo="${currentUser}"`)
 			.success((obj) => {
-				console.log('returnObj', obj);
 				let objStats = obj;
 				Object.keys(objStats).forEach((key) => {
 					objStats[key].id = key;
 					stats.push(objStats[key]);
 				});
-				console.log('stats', stats);
 				resolve(stats);
+			})
+			.error((error) => {
+				reject(error);
+			});
+		});
+	};
+
+	let setUpdate = (newTime, id) => {
+		return new Promise ((resolve, reject) => {
+			$http.patch(`${FBcreds.URL}/users/${id}/.json`, angular.toJson(newTime))
+			.success((data) => {
+				resolve(data);
 			})
 			.error((error) => {
 				reject(error);
@@ -26,5 +36,8 @@ app.factory('ProfFactory', function($http, FBcreds, AuthFactory) {
 
 	
 
-	return{getUserStats};
+	
+
+	return{getUserStats, setUpdate};
 });
+
