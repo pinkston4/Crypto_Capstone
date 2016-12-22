@@ -203,6 +203,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory)
 	$scope.giveUp = () => {
 		$scope.cipherTxtArray = $scope.originalTxtArray;
 		$scope.addTallyAbandoned();
+		$scope.quiter();
 	};
 
 //check to see if the letter input matches the deciphered text
@@ -282,6 +283,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory)
 		if(newArray.length === $scope.cipherTxtArray.length) {
 			$scope.endTimer();
 			$scope.addTallyComplete();
+			$scope.displayResults();
 		}
 	};
 
@@ -334,7 +336,20 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory)
 		});
 	};
 
+//display the final results for user
+	$scope.displayResults = () => {
+		$('#finalResults').html(`<h4>Your Final Time: ${$scope.runTime}</h4>
+			<p>Click 'New Puzzle' for the next challenge!</p>`);
+	};
 
+//if the user clicked give up disable all inputs and display instructions 
+	$scope.quiter = () => {
+		$('#finalResults').html(`<h4>You Gave Up!</h4>
+			<p>Click 'New Puzzle' for another challenge!<p>`);
+		for(let i = 0; i < $scope.cipherTxtArray.length; i++) {
+			$(`#${i}`).prop('disabled', true);
+		}
+	};
 
 });
 

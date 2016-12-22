@@ -4,6 +4,7 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window, 
 	$scope.account = {
 		email: '',
 		password: '',
+		userName: '',
 		bestTime: 1000000000000,
 		totalAttempts: 0,
 		totalComplete: 0,
