@@ -284,6 +284,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory)
 			$scope.endTimer();
 			$scope.addTallyComplete();
 			$scope.displayResults();
+			$(`#giveUpBtn`).prop('disabled', true);
 		}
 	};
 
@@ -344,6 +345,7 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory)
 
 //if the user clicked give up disable all inputs and display instructions 
 	$scope.quiter = () => {
+		$(`#giveUpBtn`).prop('disabled', true);
 		$('#finalResults').html(`<h4>You Gave Up!</h4>
 			<p>Click 'New Puzzle' for another challenge!<p>`);
 		for(let i = 0; i < $scope.cipherTxtArray.length; i++) {
