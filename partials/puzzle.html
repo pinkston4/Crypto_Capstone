@@ -1,16 +1,18 @@
 
-<div class="panel panel-default">
+<div class="panel panel-default myPuzzleBody">
 	<div class="panel-body">
 		<div ng-repeat="thingy in cipherTxtArray track by $index" class="cipherString">
 		<div>
-			<div class="cipherLetter"><input type="text" name="" id="{{$index}}" class="letterGuess" maxlength="1" ng-Keyup="checkYoSelf($event)" ng-disabled="{{thingy == ' ' ? true : false}}"></div>
+			<div class="cipherLetter"><input type="text" name="" id="{{$index}}" class="letterGuess" maxlength="1" ng-KeyUp="checkYoSelf($event)" ng-disabled="{{thingy == ' ' ? true : false}}"></div>
 			<div class="cipherLetter">{{thingy == ' ' ? '&nbsp;' : thingy}}</div>
 		</div>
 
 		</div>
 		<div id="finalResults"></div>
 	</div>
-	<button class="backHome"><a ng-href="#/mainView">Back Home</a></button>
+	<!-- <button class="backHome"><a ng-href="#/mainView">Back Home</a></button> -->
+	<button class="backHome"><a ng-href="#/profile">Your Stats</a></button>
+	<button class="backHome"><a ng-click="logOut()">SignOut</a></button>
 	<button id="giveUpBtn" class="puzBtn" ng-click="giveUp()">Give Up</button>
 	<button class="puzBtn" ng-click="getNewPuzzle()">New Puzzle</button>
 </div>

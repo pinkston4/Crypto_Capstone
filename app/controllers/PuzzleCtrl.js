@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory) {
+app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory, AuthFactory) {
 	
 	$scope.xtable = {
 		a: 0,
@@ -208,10 +208,10 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory)
 
 //check to see if the letter input matches the deciphered text
 	$scope.checkYoSelf = ($event) => {
+		let i = $event.currentTarget.id;
 		if($event.which < 65 || $event.which > 90) {
 			return;
 		}
-		let i = $event.currentTarget.id;
 		let letter = String.fromCharCode($event.which).toLowerCase();
 		if($scope.originalTxtArray[i] == letter) {
 			$scope.allInstances(i, letter);
@@ -351,6 +351,19 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory)
 		for(let i = 0; i < $scope.cipherTxtArray.length; i++) {
 			$(`#${i}`).prop('disabled', true);
 		}
+	};
+
+//logout function
+	$scope.logOut = () => {
+		AuthFactory.logoutUser()
+		.then((logoutData)=>{
+			console.log(logoutData);
+			AuthFactory.isAuthenticated()
+			.then((Authdata)=>{
+				console.log(Authdata);
+				$window.location.href = "#/login";
+			});
+		});
 	};
 
 });
