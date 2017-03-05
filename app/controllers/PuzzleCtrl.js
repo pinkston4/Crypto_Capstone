@@ -264,8 +264,14 @@ app.controller('PuzzleCtrl', function($scope, FactFactory, $window, ProfFactory,
 		$scope.milli = $scope.end - $scope.start;
 		let trueTime = $scope.milli / 1000;
 		let minutes = Math.floor(trueTime / 60);
-		let seconds = (trueTime % 60).toPrecision(2);
-		$scope.runTime = minutes + ":" + seconds;
+		let seconds = trueTime % 60;
+		let trueSeconds = null;
+		if(seconds < 10) {
+			trueSeconds = '0' + String(Math.floor(seconds));
+		} else{
+			trueSeconds = String(Math.floor(seconds));
+		}
+		$scope.runTime = minutes + ":" + trueSeconds;
 		console.log("totalTime:", $scope.runTime);
 		console.log('totalTime milliseconds:', $scope.milli);
 		$scope.besTime();

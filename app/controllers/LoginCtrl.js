@@ -32,7 +32,7 @@ app.controller('LoginCtrl', function($scope, AuthFactory, UserFactory, $window, 
 	.then((userData) => {
 		console.log("user", userData);
 		AuthFactory.isAuthenticated();
-		$window.location.href = "#/puzzle";
+		$window.location.href = "#/mainView";
 	});
 	};
 });

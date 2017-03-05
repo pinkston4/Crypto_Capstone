@@ -34,6 +34,10 @@
 	height: 3em;
 }
 
+.onToPuzzle {
+	height: 3em;
+}
+
 .register {
 	margin: 2px;
 }
@@ -66,6 +70,7 @@ body {
 
 .myPanel {
 	opacity: 0.95;
+	margin-top: 7.5%;
 	margin-left: 25%;
 	margin-right: 25%;
 }
@@ -77,3 +82,24 @@ body {
 	margin-right: 3%;
 }
 
+#userStats {
+	text-align: left;
+	margin-left: 25%;
+	list-style: none;
+}
+
+.navButtonMain {
+	display: inline-block;
+}
+
+.landingBody {
+	display: inline-block;
+}
+
+.leftBox {
+	text-align: left;
+}
+
+.Instructions {
+	text-align: left;
+}
