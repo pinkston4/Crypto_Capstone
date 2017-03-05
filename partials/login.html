@@ -1,20 +1,28 @@
 <div class="panel panel-default myPanel">
 	<div class="panel-body">
-		<section class="auth-form">
-			<h2>Login or Register</h2>
-			<div>
-				<input class="register" type="text" autofocus="true" ng-model="account.email" placeholder="Email">
-			</div>
-			<div>
-				<input class="register" type="Password" ng-model="account.password" placeholder="password">
-			</div>
-			<div>
-				<input class="register" type="text" ng-model="account.userName" placeholder="UserName">
-			</div>
-			<div>
-				<button class="btn btn-info login" ng-click="login()">Login</button>
-				<button class="btn btn-default login" ng-click="register()">Register</button>
-			</div>
-		</section>
+		<div class="landingBody leftBox">
+			<h3>Bewildered</h3>
+			<p>
+			A puzzle only for those who are up for a challenge. Bewildered will present you with a phrase that is encoded. It is your job to solve for the original phrase. Phrases consist of quotes, random facts, and jokes. You will be timed and your best time recorded. Bewildered will also keep track of the total number of puzzles you attemted, puzzles you successfully solved, and puzzles abandoned. 
+			</p>
+		</div>
+		<div class="landingBody rightBox">
+			<section class="auth-form">
+				<h2>Login or Register</h2>
+				<div>
+					<input class="register" type="text" autofocus="true" ng-model="account.email" placeholder="Email">
+				</div>
+				<div>
+					<input class="register" type="Password" ng-model="account.password" placeholder="password">
+				</div>
+				<div>
+					<input class="register" type="text" ng-model="account.userName" placeholder="UserName">
+				</div>
+				<div>
+					<button class="btn btn-info login" ng-click="login()">Login</button>
+					<button class="btn btn-default login" ng-click="register()">Register</button>
+				</div>
+			</section>
+		</div>
 	</div>
 </div>

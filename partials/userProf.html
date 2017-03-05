@@ -1,20 +1,14 @@
 <div class="panel panel-default myPanel">
 	<div class="panel-body">
-		<div>
-			<h5>UserName: {{userName}}</h5>
-		</div>
-		<div>
-			<h5>Best Time: {{bestTime}}</h5>
-		</div>
-		<div>
-			<h5>Total Attempted Puzzles: {{totalAttempts}}</h5>
-		</div>
-		<div>
-			<h5>Total Completed Puzzles: {{totalComplete}}</h5>
-		</div>
-		<div>
-			<h5>Total Abandoned Puzzles: {{totalAbandoned}}</h5>
-		</div>
+		<h3>User Stats</h3>
+		<ul id="userStats">
+			<li><h5>UserName: {{userName}}</h5></li>
+			<li><h5>Best Time: {{bestTime}}</h5></li>
+			<li><h5>Total Attempted Puzzles: {{totalAttempts}}</h5></li>
+			<li><h5>Total Completed Puzzles: {{totalComplete}}</h5></li>
+			<li><h5>Total Abandoned Puzzles: {{totalAbandoned}}</h5></li>
+		</ul>
 	</div>
 	<button class="backHome"><a ng-href="#/puzzle">Back To Puzzle</a></button>
+	<button class="backHome"><a ng-href="#/mainView">Back Home</a></button>
 </div>

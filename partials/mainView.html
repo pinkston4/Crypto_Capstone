@@ -1,13 +1,37 @@
 <div class="panel panel-default myPanel">
 	<div class="panel-body">
-		<div>
-			<a ng-href="#/profile"><button class="mainButton">Profile</button></a>
+		<div class="buttonBar">
+			<div class="navButtonMain">
+				<a ng-href="#/profile"><button class="mainButton">Profile</button></a>
+			</div>
+			<div class="navButtonMain">
+				<a ng-href="#/puzzle"><button class="onToPuzzle"> On to the Puzzles!</button></a>
+			</div>
+			<div class="navButtonMain">
+				<a ng-click='logOut()'><button class="mainButton">Signout</button></a>
+			</div>
 		</div>
-		<div>
-			<a ng-href="#/puzzle"><button class="mainButton">Puzzle</button></a>
-		</div>
-		<div>
-			<a ng-click='logOut()'><button class="mainButton">Signout</button></a>
+		<div class="Instructions">
+			<h4>Instructions</h4>
+			<ul>
+				<li>
+					Click above the letter you are trying to solve for, then type your guess.
+					<ul>
+						<li>
+							If the guess is correct the input's background will turn green and will then be disabled. Also if there are any letters matching the one you selected in the phrase, their corresponding inputs will dispaly the correct letter, have their background turned green, and then disabled.
+						</li>
+						<li>
+							If the guess is incorrect the letter you typed will be deleted immediately, and the background of the input will turn red.
+						</li>
+					</ul>
+				</li>
+				<li>
+					If you cannot solve the puzzle, click 'give up', the correct phrase will take place of the puzzle, the puzzles timer will stop and the time will not be recorded, but a tally will be added to the number of puzzles you have abandoned. 
+				</li>
+				<li>
+					A puzzle is only finished when all inputs are filled in with the correct answer. When the puzzle is finished a message will appear revealing your time and congratulating you.
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>

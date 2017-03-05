@@ -20,8 +20,14 @@ app.controller('ProfCtrl', function($scope, ProfFactory) {
 	$scope.setBestTime = (stats) => {
 		let trueTime = stats[0].bestTime / 1000;
 		let minutes = Math.floor(trueTime / 60);
-		let seconds = (trueTime % 60).toPrecision(2);
-		$scope.bestTime = minutes + ":" + seconds;
+		let seconds = (trueTime % 60);
+		let trueSeconds = null;
+		if(seconds < 10) {
+			trueSeconds = '0' + String(Math.floor(seconds));
+		} else{
+			trueSeconds = String(Math.floor(seconds));
+		}
+		$scope.bestTime = minutes + ":" + trueSeconds;
 	};
 
 });
