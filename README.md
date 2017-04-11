@@ -7,6 +7,7 @@ many you have successfully completed; it also tracks the users best time.
 
 ## Visit Bewildered
 https://crypto-capstone.firebaseapp.com/
+PASSWORD MUST BE 6 CHARACTERS LONG!
 
 ## Dependencies (if you wish to set up locally on your machine)
 1. You will need to have nodejs, npm, and bower installed onto your machine.
