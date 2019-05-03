@@ -14,7 +14,7 @@ PASSWORD MUST BE 6 CHARACTERS LONG!
 1. You will need to have nodejs, npm, and bower installed onto your machine.
 1. You will need a local server (http server prefered) in order to run this application locally. http-server can be installed via npm.
 1. To run the program locally you will need the API-key, which was not pushed to
-git hub. You can email me at pinkstonjack2@gmail.com for it.
+git hub.
 
 ## Set Up (if you wish to set up locally on your machine)
 1. Assuming you have all the Dependencies
